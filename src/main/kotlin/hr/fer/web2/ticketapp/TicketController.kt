@@ -29,7 +29,7 @@ class TicketController(private val ticketService: TicketService) {
     }
 
     @GetMapping("/details/{id}", produces = [MediaType.IMAGE_PNG_VALUE])
-    fun getTicket(@PathVariable ticketId: UUID): String {
+    fun getTicketDetails(@PathVariable ticketId: UUID): String {
         return ""
     }
 }
