@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: web2-projekt1
+    name: ticket-app
   datasource:
     url: jdbc:postgresql://dpg-cs60ohlumphs73b3pm60-a.frankfurt-postgres.render.com:5432/web2_projekt1_db
     username: web2_projekt1_db_user
