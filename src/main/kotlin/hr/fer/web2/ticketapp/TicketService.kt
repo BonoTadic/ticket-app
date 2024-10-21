@@ -28,7 +28,7 @@ class TicketService(private val ticketRepository: TicketRepository) {
         return QRCodeResponse(qrCodeImage = qrCodeImage)
     }
 
-    fun generateQRCode(url: String): ByteArray {
+    private fun generateQRCode(url: String): ByteArray {
         val qrCodeWriter = QRCodeWriter()
         val bitMatrix: BitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 250, 250)
 

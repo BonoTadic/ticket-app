@@ -5,9 +5,9 @@ spring:
   application:
     name: ticket-app
   datasource:
-    url: jdbc:postgresql://dpg-cs60ohlumphs73b3pm60-a.frankfurt-postgres.render.com:5432/web2_projekt1_db
-    username: web2_projekt1_db_user
-    password: lhxKota5l3UDqEKDs4425Gw6QWf5Me6D
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,8 +16,8 @@ spring:
       client:
         registration:
           auth0:
-            client-id: 7biWA41clcyfWuBsjuYCvxFKelsnk0sE
-            client-secret: ZOQbrQt6W3p6z7fJ-doTuKiHiV0kjxlEmbxtaIcbFX2Z9VVvRR9GPjqdX8QHcEfs
+            client-id: ${OIDC_CLIENT_ID}
+            client-secret: ${OIDC_CLIENT_SECRET}
             scope:
               - openid
               - profile

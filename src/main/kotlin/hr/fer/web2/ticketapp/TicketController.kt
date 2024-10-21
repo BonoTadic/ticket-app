@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/tickets")
 class TicketController(private val ticketService: TicketService) {
 
-    @PostMapping("/generate")
-    fun generateTicket(@RequestBody request: TicketRequest): ResponseEntity<ByteArray> {
+    @PostMapping("/create")
+    fun createTicket(@RequestBody request: TicketRequest): ResponseEntity<ByteArray> {
         val qrCodeResponse = ticketService.createTicket(request.vatin, request.firstName, request.lastName)
 
         val headers = HttpHeaders().apply {
