@@ -5,14 +5,15 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
 
-@RestController
+@Controller
 @RequestMapping("/tickets")
 class TicketController(private val ticketService: TicketService) {
 
@@ -28,9 +29,12 @@ class TicketController(private val ticketService: TicketService) {
         return ResponseEntity(qrCodeResponse.qrCodeImage, headers, HttpStatus.CREATED)
     }
 
-    @GetMapping("/details/{id}", produces = [MediaType.IMAGE_PNG_VALUE])
-    fun getTicketDetails(@PathVariable ticketId: UUID): String {
-        return ""
+    @GetMapping("/details/{ticketId}")
+    fun getTicketDetails(@PathVariable ticketId: UUID, model: Model): String {
+        val ticket = ticketService.getTicketDetails(ticketId)
+        model.addAttribute("ticket", ticket)
+
+        return "ticket-details"
     }
 }
 

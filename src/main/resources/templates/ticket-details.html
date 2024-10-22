@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+
+        .ticket-details {
+            margin-top: 20px;
+        }
+
+        .ticket-details label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .ticket-details p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .ticket-details p span {
+            color: #555;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ticket Details</h1>
+    <div class="ticket-details">
+        <p><label>First Name:</label> <span th:text="${ticket.firstName}">John</span></p>
+        <p><label>Last Name:</label> <span th:text="${ticket.lastName}">Doe</span></p>
+        <p><label>VATIN:</label> <span th:text="${ticket.vatin}">123456789</span></p>
+        <p><label>Timestamp:</label> <span th:text="${ticket.createdAt}">2024-10-21 14:23:00</span></p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Ticketing System</p>
+    </div>
+</div>
+</body>
+</html>

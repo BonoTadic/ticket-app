@@ -5,6 +5,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import java.io.ByteArrayOutputStream
+import java.util.UUID
 import javax.imageio.ImageIO
 import org.springframework.stereotype.Service
 
@@ -26,6 +27,11 @@ class TicketService(private val ticketRepository: TicketRepository) {
         val qrCodeImage = generateQRCode(ticketUrl)
 
         return QRCodeResponse(qrCodeImage = qrCodeImage)
+    }
+
+    fun getTicketDetails(ticketId: UUID): Ticket {
+        return ticketRepository.findById(ticketId)
+            .orElseThrow { IllegalArgumentException("Ticket not found with ID: $ticketId") }
     }
 
     private fun generateQRCode(url: String): ByteArray {
