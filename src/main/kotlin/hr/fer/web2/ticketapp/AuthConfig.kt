@@ -15,7 +15,7 @@ class AuthConfig {
 
     @Bean
     @Order(1)
-    fun resourceServerFilter(http: HttpSecurity) : SecurityFilterChain {
+    fun apiSecurityConfig(http: HttpSecurity) : SecurityFilterChain {
         return http
             .securityMatcher(RequestHeaderRequestMatcher("Authorization"))
             .authorizeHttpRequests {
@@ -29,10 +29,11 @@ class AuthConfig {
 
     @Bean
     @Order(2)
-    fun loginFilter(http: HttpSecurity): SecurityFilterChain {
+    fun userLoginSecurityConfig(http: HttpSecurity): SecurityFilterChain {
         return http
             .authorizeHttpRequests {
                 it.requestMatchers(HttpMethod.GET, "/tickets/details/**").authenticated()
+                it.requestMatchers(HttpMethod.GET, "/tickets/total").permitAll()
             }
             .oauth2Login { }
             .build()

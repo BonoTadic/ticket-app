@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Details</title>
+    <title>Total Tickets</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,28 +26,11 @@
             text-align: center;
         }
 
-        .user-info {
-            text-align: right;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .ticket-details {
+        .total-tickets {
             margin-top: 20px;
-        }
-
-        .ticket-details label {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .ticket-details p {
-            font-size: 18px;
+            font-size: 24px;
             color: #333;
-        }
-
-        .ticket-details p span {
-            color: #555;
+            text-align: center;
         }
 
         .footer {
@@ -59,15 +42,9 @@
 </head>
 <body>
 <div class="container">
-    <div class="user-info">
-        Logged in as: <span th:text="${name}">User</span>
-    </div>
-    <h1>Ticket Details</h1>
-    <div class="ticket-details">
-        <p><label>First Name:</label> <span th:text="${ticket.firstName}">John</span></p>
-        <p><label>Last Name:</label> <span th:text="${ticket.lastName}">Doe</span></p>
-        <p><label>VATIN:</label> <span th:text="${ticket.vatin}">123456789</span></p>
-        <p><label>Timestamp:</label> <span th:text="${ticket.createdAt}">2024-10-21 14:23:00</span></p>
+    <h1>Total Tickets Generated</h1>
+    <div class="total-tickets">
+        <p th:text="'Total Tickets: ' + ${totalTickets}">Total Tickets: 100</p>
     </div>
     <div class="footer">
         <p>&copy; FER Ticket Systems</p>

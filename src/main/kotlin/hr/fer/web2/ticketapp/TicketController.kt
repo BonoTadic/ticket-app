@@ -1,13 +1,15 @@
 package hr.fer.web2.ticketapp
 
+import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
-import java.security.Principal
 import java.util.UUID
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.oauth2.core.oidc.user.OidcUser
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 class TicketController(private val ticketService: TicketService) {
 
     @PostMapping("/create")
-    fun createTicket(@RequestBody request: TicketRequest, bindingResult: BindingResult): ResponseEntity<Any> {
+    fun createTicket(@Valid @RequestBody request: TicketRequest, bindingResult: BindingResult): ResponseEntity<Any> {
         if (bindingResult.hasErrors()) {
             val errors = bindingResult.allErrors.map { it.defaultMessage ?: "Invalid input" }
             return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
@@ -43,14 +45,21 @@ class TicketController(private val ticketService: TicketService) {
     }
 
     @GetMapping("/details/{ticketId}")
-    fun getTicketDetails(@PathVariable ticketId: UUID, model: Model, principal: Principal): String {
+    fun getTicketDetails(@PathVariable ticketId: UUID, model: Model, @AuthenticationPrincipal user: OidcUser): String {
         val ticket = ticketService.getTicketDetails(ticketId)
-        val username = principal.name
+        val name = user.fullName ?: user.preferredUsername
 
         model.addAttribute("ticket", ticket)
-        model.addAttribute("username", username)
+        model.addAttribute("name", name)
 
         return "ticket-details"
+    }
+
+    @GetMapping("/total")
+    fun getTotalTickets(model: Model): String {
+        val totalTickets = ticketService.getTotalTickets()
+        model.addAttribute("totalTickets", totalTickets)
+        return "total-tickets"
     }
 }
 
