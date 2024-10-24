@@ -2,6 +2,7 @@ package hr.fer.web2.ticketapp
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
+import java.security.Principal
 import java.util.UUID
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -42,9 +43,12 @@ class TicketController(private val ticketService: TicketService) {
     }
 
     @GetMapping("/details/{ticketId}")
-    fun getTicketDetails(@PathVariable ticketId: UUID, model: Model): String {
+    fun getTicketDetails(@PathVariable ticketId: UUID, model: Model, principal: Principal): String {
         val ticket = ticketService.getTicketDetails(ticketId)
+        val username = principal.name
+
         model.addAttribute("ticket", ticket)
+        model.addAttribute("username", username)
 
         return "ticket-details"
     }

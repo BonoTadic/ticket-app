@@ -26,6 +26,12 @@
             text-align: center;
         }
 
+        .user-info {
+            text-align: right;
+            font-size: 14px;
+            color: #666;
+        }
+
         .ticket-details {
             margin-top: 20px;
         }
@@ -53,6 +59,9 @@
 </head>
 <body>
 <div class="container">
+    <div class="user-info">
+        Logged in as: <span th:text="${username}">User</span>
+    </div>
     <h1>Ticket Details</h1>
     <div class="ticket-details">
         <p><label>First Name:</label> <span th:text="${ticket.firstName}">John</span></p>
@@ -61,7 +70,7 @@
         <p><label>Timestamp:</label> <span th:text="${ticket.createdAt}">2024-10-21 14:23:00</span></p>
     </div>
     <div class="footer">
-        <p>&copy; 2024 Ticketing System</p>
+        <p>&copy; FER Ticket Systems</p>
     </div>
 </div>
 </body>
