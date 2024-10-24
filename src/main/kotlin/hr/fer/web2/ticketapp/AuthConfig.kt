@@ -6,7 +6,6 @@ import org.springframework.core.annotation.Order
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher
 
@@ -17,29 +16,25 @@ class AuthConfig {
     @Bean
     @Order(1)
     fun resourceServerFilter(http: HttpSecurity) : SecurityFilterChain {
-        http {
-            securityMatcher(RequestHeaderRequestMatcher("Authorization"))
-            authorizeHttpRequests {
-                authorize(method = HttpMethod.POST, pattern = "/tickets/create", authenticated)
+        return http
+            .securityMatcher(RequestHeaderRequestMatcher("Authorization"))
+            .authorizeHttpRequests {
+                it.requestMatchers(HttpMethod.POST, "/tickets/create").authenticated()
             }
-
-            oauth2ResourceServer {
-                jwt {  }
+            .oauth2ResourceServer {
+                it.jwt { }
             }
-        }
-        return http.build()
+            .build()
     }
 
     @Bean
     @Order(2)
     fun loginFilter(http: HttpSecurity): SecurityFilterChain {
-        http {
-            authorizeHttpRequests {
-                authorize(method = HttpMethod.GET, pattern = "/tickets/details/**", authenticated)
+        return http
+            .authorizeHttpRequests {
+                it.requestMatchers(HttpMethod.GET, "/tickets/details/**").authenticated()
             }
-            oauth2Login {  }
-        }
-
-        return http.build()
+            .oauth2Login { }
+            .build()
     }
 }
